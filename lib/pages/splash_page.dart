@@ -1,3 +1,4 @@
+import 'package:cozy/pages/home_page.dart';
 import 'package:cozy/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -49,7 +50,9 @@ class SplashPage extends StatelessWidget {
                 ),
                 SizedBox(height: 40),
                 ElevatedButton(
-                  onPressed: (){}, 
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                  }, 
                   child: Text(
                     'Explore Now',
                     style: whiteTextStyle.copyWith(
