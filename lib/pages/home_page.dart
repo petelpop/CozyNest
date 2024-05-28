@@ -2,6 +2,7 @@ import 'package:cozy/models/City.dart';
 import 'package:cozy/models/Space.dart';
 import 'package:cozy/models/Tips.dart';
 import 'package:cozy/theme.dart';
+import 'package:cozy/widgets/bottom_nav_item.dart';
 import 'package:cozy/widgets/city_card.dart';
 import 'package:cozy/widgets/space_card.dart';
 import 'package:cozy/widgets/tips_card.dart';
@@ -20,8 +21,6 @@ class HomePage extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 24),
           child: ListView(
             children: [
-
-
               // NOTE: TITLE/HEADER
               Padding(
                 padding: EdgeInsets.only(left: 24),
@@ -56,13 +55,37 @@ class HomePage extends StatelessWidget {
                 SizedBox(height: 30),
                 //NOTE: TIPS & GUIDANCE
                 _titleGuidance(),
-                  SizedBox(height: 16),
-                _listGuidance()
+                SizedBox(height: 16),
+                _listGuidance(),
+                SizedBox(height: 50),
             ],
           ),
         )
         ),
+        floatingActionButton: _bottomNavBar(context),
+                floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
+  }
+
+  Container _bottomNavBar(BuildContext context) {
+    return Container(
+                height: 65,
+                width: MediaQuery.of(context).size.width - (2 * 24),
+                margin: EdgeInsets.symmetric(horizontal: 24),
+                decoration: BoxDecoration(
+                  color: Color(0xFFF6F7F8),
+                  borderRadius: BorderRadius.circular(23)
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    BottomNavbarItem(imageUrl: 'assets/icon_home.png', isActive: true),
+                    BottomNavbarItem(imageUrl: 'assets/icon_mail.png', isActive: false),
+                    BottomNavbarItem(imageUrl: 'assets/icon_card.png', isActive: false),
+                    BottomNavbarItem(imageUrl: 'assets/icon_love.png', isActive: false),
+                  ],
+                ),
+              );
   }
 
   Padding _listGuidance() {
