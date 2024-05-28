@@ -1,8 +1,10 @@
 import 'package:cozy/models/City.dart';
 import 'package:cozy/models/Space.dart';
+import 'package:cozy/models/Tips.dart';
 import 'package:cozy/theme.dart';
 import 'package:cozy/widgets/city_card.dart';
 import 'package:cozy/widgets/space_card.dart';
+import 'package:cozy/widgets/tips_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -52,22 +54,41 @@ class HomePage extends StatelessWidget {
                 SizedBox(height: 16),
                 _listSpace(),
                 SizedBox(height: 30),
-  
                 //NOTE: TIPS & GUIDANCE
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Text(
-                    'Tips & Guidance',
-                    style: blackTextStyle.copyWith(
-                      fontSize: 16
-                    ),
-                  ),
-                  )
+                _titleGuidance(),
+                  SizedBox(height: 16),
+                _listGuidance()
             ],
           ),
         )
         ),
     );
+  }
+
+  Padding _listGuidance() {
+    return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  child: Column(
+                    children: [
+                      TipsCard(tips: Tips(id: 1, imageUrl: 'assets/tips1.png', title: 'City Guidelines', description: 'Updated 20 Apr')),
+                      SizedBox(height: 20),
+                      TipsCard(tips: Tips(id: 2, imageUrl: 'assets/tips2.png', title: 'Jakarta Fairship', description: 'Updated 11 Dec'))
+
+                    ],
+                  ),
+                  );
+  }
+
+  Padding _titleGuidance() {
+    return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                child: Text(
+                  'Tips & Guidance',
+                  style: blackTextStyle.copyWith(
+                    fontSize: 16
+                  ),
+                ),
+                );
   }
 
   Padding _titlePopularCities() {
