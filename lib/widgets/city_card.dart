@@ -55,7 +55,7 @@ class CityCard extends StatelessWidget {
                   style: blackTextStyle.copyWith(
                     fontSize: 16,
                   ),
-                  )
+                )
             ],
           ),
         ),
