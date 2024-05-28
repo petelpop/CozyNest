@@ -17,49 +17,47 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         bottom: false,
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 24),
-          child: ListView(
-            children: [
-              // NOTE: TITLE/HEADER
-              Padding(
-                padding: EdgeInsets.only(left: 24),
-                child: Text(
-                  'Explore Now',
-                  style: blackTextStyle.copyWith(
-                    fontSize: 24
-                  ),
-                  ),
+        child: ListView(
+          children: [
+            SizedBox(height: 24),
+            // NOTE: TITLE/HEADER
+            Padding(
+              padding: EdgeInsets.only(left: 24),
+              child: Text(
+                'Explore Now',
+                style: blackTextStyle.copyWith(
+                  fontSize: 24
+                ),
+                ),
+            ),
+            SizedBox(height: 2),
+            Padding(
+              padding: EdgeInsets.only(left: 24),
+              child: Text(
+                'Mencari kosan yang cozy',
+                style: greyTextStyle.copyWith(
+                  fontSize: 16
+                ),
               ),
-              SizedBox(height: 2),
-              Padding(
-                padding: EdgeInsets.only(left: 24),
-                child: Text(
-                  'Mencari kosan yang cozy',
-                  style: greyTextStyle.copyWith(
-                    fontSize: 16
-                  ),
-                ),
-                ),
-
-                SizedBox(height: 30),
-                // NOTE: POPULAR CITIES
-                _titlePopularCities(),
-                SizedBox(height: 16),
-                _listPopularCities(),
-                SizedBox(height: 30),
-                //NOTE:RECOMMENDED SPACE
-                _titleSpace(),
-                SizedBox(height: 16),
-                _listSpace(),
-                SizedBox(height: 30),
-                //NOTE: TIPS & GUIDANCE
-                _titleGuidance(),
-                SizedBox(height: 16),
-                _listGuidance(),
-                SizedBox(height: 50),
-            ],
-          ),
+              ),
+        
+              SizedBox(height: 30),
+              // NOTE: POPULAR CITIES
+              _titlePopularCities(),
+              SizedBox(height: 16),
+              _listPopularCities(),
+              SizedBox(height: 30),
+              //NOTE:RECOMMENDED SPACE
+              _titleSpace(),
+              SizedBox(height: 16),
+              _listSpace(),
+              SizedBox(height: 30),
+              //NOTE: TIPS & GUIDANCE
+              _titleGuidance(),
+              SizedBox(height: 16),
+              _listGuidance(),
+              SizedBox(height: 100),
+          ],
         )
         ),
         floatingActionButton: _bottomNavBar(context),
