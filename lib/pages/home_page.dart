@@ -1,6 +1,7 @@
 import 'package:cozy/models/City.dart';
 import 'package:cozy/models/Space.dart';
 import 'package:cozy/models/Tips.dart';
+import 'package:cozy/providers/space_provider.dart';
 import 'package:cozy/theme.dart';
 import 'package:cozy/widgets/bottom_nav_item.dart';
 import 'package:cozy/widgets/city_card.dart';
@@ -8,12 +9,17 @@ import 'package:cozy/widgets/space_card.dart';
 import 'package:cozy/widgets/tips_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    var spaceProvider = Provider.of<SpaceProvider>(context);
+    spaceProvider.getrecommendedSpace();
+
     return Scaffold(
       body: SafeArea(
         bottom: false,
@@ -144,15 +150,14 @@ class HomePage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Column(
                     children: [
-                      SpaceCard(
-                        space: Space(id: 1, name: 'Kuretakeso Hott', imageUrl: 'assets/space1.png', price: 52, city: 'Bandung', country: 'Indonesia', rating: 4),
-                      ),
-                      SizedBox(height: 29),
-                      SpaceCard(
-                        space: Space(id: 2, name: 'Roemah Nenek', imageUrl: 'assets/space2.png', price: 11, city: 'Bogor', country: 'Indonesia', rating: 5)
-                        ),
-                      SizedBox(height: 29),
-                      SpaceCard(space: Space(id: 3, name: 'Darrling How', imageUrl: 'assets/space3.png', price: 20, city: 'Jakarta', country: 'Indonesia', rating: 3)),
+                      // SpaceCard(
+                      //   space: Space(id: 1, name: 'Kuretakeso Hott', imageUrl: 'assets/space1.png', price: 52, city: 'Bandung', country: 'Indonesia', rating: 4),
+                      // ),
+                      // SizedBox(height: 29),
+                      // SpaceCard(
+                      //   space: Space(id: 2, name: 'Roemah Nenek', imageUrl: 'assets/space2.png', price: 11, city: 'Bogor', country: 'Indonesia', rating: 5)
+                      //   ),
+                      // SizedBox(height: 29),
                     ],
                   ),
                 );
