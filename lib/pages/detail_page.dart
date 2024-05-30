@@ -2,12 +2,23 @@ import 'package:cozy/theme.dart';
 import 'package:cozy/widgets/facility_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+      launchUrlString(String url) async {
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw(url);
+      }
+    }
+
     return Scaffold(
       body: SafeArea(
           top: false,
@@ -42,11 +53,11 @@ class DetailPage extends StatelessWidget {
                         _listPhotos(),
                         SizedBox(height: 30),
                         _locationTitle(),
-                          SizedBox(height: 6),
-                          _locationDetail(),
-                          SizedBox(height: 40),
-                          _buttonBook(context),
-                            SizedBox(height: 40)
+                        SizedBox(height: 6),
+                        _locationDetail(),
+                        SizedBox(height: 40),
+                        _buttonBook(context),
+                        SizedBox(height: 40)
                       ],
                     ),
                   )
@@ -115,11 +126,16 @@ class DetailPage extends StatelessWidget {
                                   fontSize: 14
                                 ),
                                 ),
-                                Image.asset(
-                                  'assets/btn_map.png',
-                                  width: 40,
-                                  height: 40
-                                  ),
+                                InkWell(
+                                  onTap: () {
+                                    launchUrlString('https://maps.app.goo.gl/318VpccG8LHH28az8');
+                                  },
+                                  child: Image.asset(
+                                    'assets/btn_map.png',
+                                    width: 40,
+                                    height: 40
+                                    ),
+                                ),
                             ],
                           ),
                         );
