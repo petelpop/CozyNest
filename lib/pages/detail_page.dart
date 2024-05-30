@@ -1,23 +1,14 @@
 import 'package:cozy/theme.dart';
+import 'package:cozy/url.dart';
 import 'package:cozy/widgets/facility_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-
-      launchUrlString(String url) async {
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        throw(url);
-      }
-    }
 
     return Scaffold(
       body: SafeArea(
@@ -54,7 +45,7 @@ class DetailPage extends StatelessWidget {
                         SizedBox(height: 30),
                         _locationTitle(),
                         SizedBox(height: 6),
-                        _locationDetail(),
+                        _locationDetail(context),
                         SizedBox(height: 40),
                         _buttonBook(context),
                         SizedBox(height: 40)
@@ -114,7 +105,7 @@ class DetailPage extends StatelessWidget {
                         );
   }
 
-  Padding _locationDetail() {
+  Padding _locationDetail(BuildContext context) {
     return Padding(
                           padding: EdgeInsets.symmetric(horizontal: 24),
                           child: Row(
@@ -128,7 +119,8 @@ class DetailPage extends StatelessWidget {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    launchUrlString('https://maps.app.goo.gl/318VpccG8LHH28az8');
+                                    // launchUrlSite(context, 'https://maps.app.goo.gl/318VpccG8LHH28az8');
+                                    launchUrlSite(context, 'qwejreioj');
                                   },
                                   child: Image.asset(
                                     'assets/btn_map.png',
