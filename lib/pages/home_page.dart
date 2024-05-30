@@ -8,7 +8,6 @@ import 'package:cozy/widgets/city_card.dart';
 import 'package:cozy/widgets/space_card.dart';
 import 'package:cozy/widgets/tips_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -16,9 +15,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    var spaceProvider = Provider.of<SpaceProvider>(context);
-    spaceProvider.getrecommendedSpace();
 
     return Scaffold(
       body: SafeArea(
@@ -56,7 +52,7 @@ class HomePage extends StatelessWidget {
               //NOTE:RECOMMENDED SPACE
               _titleSpace(),
               SizedBox(height: 16),
-              _listSpace(),
+              _listSpace(context),
               SizedBox(height: 30),
               //NOTE: TIPS & GUIDANCE
               _titleGuidance(),
@@ -145,21 +141,37 @@ class HomePage extends StatelessWidget {
               );
   }
 
-  Padding _listSpace() {
+  Padding _listSpace(BuildContext context) {
+        var spaceProvider = Provider.of<SpaceProvider>(context);
+        spaceProvider.getrecommendedSpace();
+
     return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Column(
-                    children: [
-                      // SpaceCard(
-                      //   space: Space(id: 1, name: 'Kuretakeso Hott', imageUrl: 'assets/space1.png', price: 52, city: 'Bandung', country: 'Indonesia', rating: 4),
-                      // ),
-                      // SizedBox(height: 29),
-                      // SpaceCard(
-                      //   space: Space(id: 2, name: 'Roemah Nenek', imageUrl: 'assets/space2.png', price: 11, city: 'Bogor', country: 'Indonesia', rating: 5)
-                      //   ),
-                      // SizedBox(height: 29),
-                    ],
-                  ),
+                  child: FutureBuilder<List<Space>>(
+                    future: spaceProvider.getrecommendedSpace(),
+                    builder: (BuildContext context,AsyncSnapshot<List<Space>> snapshot) {
+                      if (snapshot.hasData) {
+                        List<Space> data = snapshot.data ?? [];
+                        int index = 0;
+
+                        return Column(
+                          children: data.map((item){
+                            index++;
+                            return Container(
+                              margin: EdgeInsets.only(
+                                top: index ==  1 ? 0 : 30
+                              ),
+                              child: SpaceCard(space: item),
+                            );
+                          }).toList()
+                        );
+                      } else {
+                        return Center(
+                            child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                    ) 
                 );
   }
 

@@ -6,10 +6,10 @@ class Space {
   late String city;
   late String country;
   late int rating;
-  late String adress;
+  late String address;
   late String phone;
   late String mapUrl;
-  late String photos;
+  late List photos;
   late int numberOfKitchens;
   late int numberOfBedrooms;
   late int numberOfCupboards;
@@ -22,7 +22,7 @@ class Space {
     required this.city,
     required this.country,
     required this.rating,
-    required this.adress,
+    required this.address,
     required this.mapUrl,
     required this.numberOfBedrooms,
     required this.numberOfCupboards,
@@ -31,7 +31,7 @@ class Space {
     required this.photos
   });
 
-  Space.fromJson(json) {
+  Space.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     city = json['city'];
@@ -39,7 +39,7 @@ class Space {
     price = json['price'];
     imageUrl = json['image_url'];
     rating = json['rating'];
-    adress = json['adress'];
+    address = json['address'];
     phone = json['phone'];
     mapUrl = json['map_url'];
     photos = json['photos'];

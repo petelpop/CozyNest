@@ -8,7 +8,7 @@ class SpaceCard extends StatelessWidget {
 
   final Space space;
 
-  const SpaceCard({super.key, required this.space});
+  SpaceCard({super.key, required this.space});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +25,11 @@ class SpaceCard extends StatelessWidget {
               width: 130,
               child: Stack(
                 children: [
-                  Image.asset(
-                    space.imageUrl
+                  Image.network(
+                    space.imageUrl,
+                    width: 130,
+                    height: 110,
+                    fit: BoxFit.cover,
                   ),
                   Align(
                         alignment: Alignment.topRight,
