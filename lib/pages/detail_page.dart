@@ -1,11 +1,17 @@
+import 'package:cozy/models/Space.dart';
 import 'package:cozy/theme.dart';
 import 'package:cozy/url.dart';
 import 'package:cozy/widgets/facility_item.dart';
+import 'package:cozy/widgets/rating_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailPage extends StatelessWidget {
-  const DetailPage({super.key});
+
+  final Space space;
+
+  const DetailPage({super.key, required this.space});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +21,8 @@ class DetailPage extends StatelessWidget {
           top: false,
           child: Stack(
             children: [
-              Image.asset(
-                'assets/thumbnail.png',
+              Image.network(
+                space.imageUrl,
                 width: MediaQuery.of(context).size.width,
                 height: 350,
                 fit: BoxFit.cover,
@@ -88,7 +94,9 @@ class DetailPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ElevatedButton(
-                              onPressed: (){}, 
+                              onPressed: (){
+                                launchUrlSite(context, 'tel:${space.phone}');
+                              }, 
                               child: Text(
                                 'Book Now',
                                 style: whiteTextStyle.copyWith(
@@ -112,7 +120,7 @@ class DetailPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Jln. Kappan Sukses No. 20\nPalembang',
+                                '${space.address}\n${space.city}',
                                 style: greyTextStyle.copyWith(
                                   fontSize: 14
                                 ),
@@ -120,7 +128,7 @@ class DetailPage extends StatelessWidget {
                                 InkWell(
                                   onTap: () {
                                     // launchUrlSite(context, 'https://maps.app.goo.gl/318VpccG8LHH28az8');
-                                    launchUrlSite(context, 'qwejreioj');
+                                    launchUrlSite(context, space.mapUrl);
                                   },
                                   child: Image.asset(
                                     'assets/btn_map.png',
@@ -150,30 +158,23 @@ class DetailPage extends StatelessWidget {
                         height: 88,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
-                          children: [
-                            const SizedBox(width: 24),
-                            Image.asset(
-                              'assets/photo1.png',
-                              width: 110,
-                              height: 88,
-                              fit: BoxFit.cover,
-                            ),
-                            const SizedBox(width: 18),
-                            Image.asset(
-                              'assets/photo2.png',
-                              width: 110,
-                              height: 88,
-                              fit: BoxFit.cover,
-                            ),
-                            const SizedBox(width: 18),
-                            Image.asset(
-                              'assets/photo3.png',
-                              width: 110,
-                              height: 88,
-                              fit: BoxFit.cover,
-                            ),
-                            const SizedBox(width: 24),
-                          ],
+                          children: space.photos.map((item){
+                              return Container(
+                                margin: EdgeInsets.only(
+                                  left: 18
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: Image.network(
+                                    item,
+                                    height: 88,
+                                    width: 110,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                          }
+                        ).toList()
                         ),
                       );
   }
@@ -199,18 +200,18 @@ class DetailPage extends StatelessWidget {
   }
 
   Padding _mainFacilities() {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           FacilityItem(
-              name: 'Kitchen', total: 2, imageUrl: 'assets/icon_kitchen.png'),
+              name: 'Kitchen', total: space.numberOfKitchens, imageUrl: 'assets/icon_kitchen.png'),
           FacilityItem(
-              name: 'Bedroom', total: 3, imageUrl: 'assets/icon_bedroom.png'),
+              name: 'Bedroom', total: space.numberOfBedrooms, imageUrl: 'assets/icon_bedroom.png'),
           FacilityItem(
               name: 'Big Cupboard',
-              total: 3,
+              total: space.numberOfCupboards,
               imageUrl: 'assets/icon_cupboard.png'),
         ],
       ),
@@ -225,13 +226,13 @@ class DetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Kuretakeso Hott',
+              space.name,
               style: blackTextStyle.copyWith(fontSize: 22),
             ),
             const SizedBox(height: 2),
             Text.rich(
               TextSpan(
-                text: '\$52',
+                text: '\$${space.price}',
                 style: purpleTextStyle.copyWith(fontSize: 16),
                 children: [
                   TextSpan(
@@ -243,34 +244,9 @@ class DetailPage extends StatelessWidget {
           ],
         ),
         Row(
-          children: [
-            Image.asset(
-              'assets/icon_star.png',
-              width: 20,
-            ),
-            const SizedBox(width: 2),
-            Image.asset(
-              'assets/icon_star.png',
-              width: 20,
-            ),
-            const SizedBox(width: 2),
-            Image.asset(
-              'assets/icon_star.png',
-              width: 20,
-            ),
-            const SizedBox(width: 2),
-            Image.asset(
-              'assets/icon_star.png',
-              width: 20,
-            ),
-            const SizedBox(width: 2),
-            Image.asset(
-              'assets/icon_star.png',
-              width: 20,
-              color: const Color(0xFF989BA1),
-            ),
-            const SizedBox(width: 22),
-          ],
+          children: [1,2,3,4,5].map((index) => Container(
+            child: RatingItem(index: index, rating: space.rating),
+          )).toList()
         )
       ]),
     );

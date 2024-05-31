@@ -10,4 +10,4 @@ Future<void> launchUrlSite(BuildContext context, String url) async{
       } else {
         Navigator.push(context, MaterialPageRoute(builder: (context) => ErrorPage()));
       }
-      }
+    }
